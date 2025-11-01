@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 import { cleanPortfolioData } from "../utils/transformPortfolio.js";
 import { getYahooFinanceLiveData } from "../services/yahooService.js";
 import { getGoogleFinanceLiveData } from "../services/googleService.js";
-import { logError, logInfo } from "../utils/logger.js";
+// import { logError, logInfo } from "../utils/logger.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
     try {
         const { source } = req.query;
         console.log("API is calling");
-        logInfo("API get started!", source);
+        // logInfo("API get started!", source);
 
         if (!fs.existsSync(filePath)) {
             throw new Error(`Portfolio file not found at: ${filePath}`);
@@ -78,7 +78,7 @@ router.get("/", async (req, res) => {
     } catch (error) {
         console.error("Error in /api/stocks:", error);
         res.status(500).json({ error: "Failed to process portfolio data" });
-        logError("Error building portfolio", error.message);
+        // logError("Error building portfolio", error.message);
     }
 });
 

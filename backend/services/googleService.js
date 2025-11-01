@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { logError, logInfo } from "../utils/logger.js";
+// import { logError, logInfo } from "../utils/logger.js";
 
 // Solution 1: Web Scraping Google Finance (Most Direct)
 export async function getGoogleFinanceLiveData(companyName) {
@@ -61,7 +61,7 @@ export async function getGoogleFinanceLiveData(companyName) {
                     timestamp: new Date().toISOString(),
                 };
 
-                logInfo(`✅ Google Finance data fetched for ${companyName}`, data);
+                // logInfo(`✅ Google Finance data fetched for ${companyName}`, data);
                 return data;
             } catch (err) {
                 console.log(`Failed with symbol ${symbol}, trying next...`);
@@ -72,7 +72,7 @@ export async function getGoogleFinanceLiveData(companyName) {
         throw new Error("No data found for any symbol format");
     } catch (err) {
         console.error("Google Finance error:", companyName, err.message);
-        logError("Google Finance error:", companyName, err);
+        // logError("Google Finance error:", companyName, err);
         return null;
     }
 }

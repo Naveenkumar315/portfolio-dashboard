@@ -23,7 +23,7 @@ export async function getYahooFinanceLiveData(companyName) {
         };
     } catch (err) {
         console.error("Yahoo Finance error:", companyName, err.message);
-        logError('Yahoo Finance error:', companyName, "error: ", err)
+        // logError('Yahoo Finance error:', companyName, "error: ", err)
         return null;
     }
 }
