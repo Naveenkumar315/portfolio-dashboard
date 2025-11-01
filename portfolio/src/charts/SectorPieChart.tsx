@@ -5,7 +5,6 @@ import {
     Tooltip,
     Legend,
     ResponsiveContainer,
-    type PieLabelRenderProps,
 } from "recharts";
 import type { Stock } from "../lib/types";
 import { CustomTooltip } from "../components/CustomTooltip";
