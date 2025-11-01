@@ -1,7 +1,8 @@
 import axios from "axios";
 import type { Stock } from "./types";
 
-const BASEURL = 'https://portfolio-dashboard-db76.vercel.app/';
+const BASEURL = 'https://backend-pi-seven-89.vercel.app';
+// 'https://portfolio-dashboard-db76.vercel.app/'
 
 const fetchPortfolilo = async (source: "yahoo" | "google"): Promise<Stock[]> => {
     try {
