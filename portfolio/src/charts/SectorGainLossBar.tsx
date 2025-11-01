@@ -7,7 +7,6 @@ import {
     Tooltip,
     ResponsiveContainer,
     Legend,
-    type TooltipProps,
     Cell,
 } from "recharts";
 import type { Stock } from "../lib/types";

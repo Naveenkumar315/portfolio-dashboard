@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "./Header";
 import ChartCard from "./ChartCard";
 import usePortfolioData from "../hooks/usePortfolioData";

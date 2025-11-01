@@ -8,7 +8,6 @@ import {
     ResponsiveContainer,
     Legend,
     Cell,
-    type TooltipProps,
 } from "recharts";
 import type { Stock } from "../lib/types";
 
