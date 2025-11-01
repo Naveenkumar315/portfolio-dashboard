@@ -1,0 +1,137 @@
+Technical Document
+Dynamic Portfolio Dashboard — Challenges & Solutions
+
+----------------------------------------------------
+
+Overview
+
+While building the Dynamic Portfolio Dashboard, I came across several challenges related to API integration, frontend–backend communication, and environment configuration.
+This document highlights the main issues I faced, the mistakes I made along the way, and the solutions I implemented to get everything working smoothly.
+
+----------------------------------------------------
+
+1. Yahoo Finance API Integration
+
+Error:
+TypeError: yahooFinance.quote is not a function
+
+Cause:
+Initially, I tried using yahooFinance.quote() directly, but the library version I installed did not support that method.
+
+Solution:
+I fixed it by importing the package correctly and using the proper API call:
+import yahooFinance from "yahoo-finance2";
+const quote = await yahooFinance.quote(symbol);
+
+After this change, live CMP (Current Market Price) values were fetched correctly for stocks like TCS.NS, and the integration worked as expected.
+
+----------------------------------------------------
+
+2. Data Transformation Import Issue
+
+Error:
+import cleanPortfolioData from "../utils/transformPortfolio.js";
+
+Cause:
+Since my project uses ES Modules ("type": "module" in package.json), I initially forgot to include .js at the end of my import statements.
+Node.js requires the full extension for ES Module imports.
+
+Solution:
+I fixed all imports by adding .js extensions:
+import cleanPortfolioData from "../utils/transformPortfolio.js";
+import { logError, logInfo } from "../utils/logger.js";
+
+After updating this, all modules were imported correctly and the app ran without any module resolution errors.
+
+----------------------------------------------------
+
+3. Tailwind CSS Import Issue
+
+Error:
+Tailwind CSS styles were not applying, even though the build completed successfully.
+
+Cause:
+I had used the older Tailwind import syntax (@tailwind base; @tailwind components; @tailwind utilities;), but the new version of Tailwind (v4+) requires a different import format.
+
+Fix:
+I created a global stylesheet index.css and added the updated import:
+@import "tailwindcss";
+
+Then imported it in my main React entry file:
+import "./index.css";
+
+After rebuilding the project, Tailwind styles started applying properly across all components.
+
+----------------------------------------------------
+
+4. Logic Error in Data Loop
+
+Mistake:
+I mistakenly wrote for (let stock in stocks) instead of for (let stock of stocks).
+
+Effect:
+Using for...in gave me index numbers instead of stock objects, which caused invalid calculations like NaN in Gain/Loss.
+
+Solution:
+I corrected the loop as:
+for (let stock of stocks) {
+  // correct iteration over stock objects
+}
+
+After this change, all calculations such as investment, gain/loss, and portfolio percentages displayed correctly.
+
+----------------------------------------------------
+
+5. Data Fetch Frequency & API Rate Limit
+
+Issue:
+Frequent API calls to Yahoo and Google Finance led to slower responses and occasional temporary blocking due to rate limits.
+
+Solution:
+I made three improvements in the backend to handle this:
+
+1. Throttling:
+   Used p-limit to restrict parallel API requests to 3 at a time.
+   This prevents overwhelming the APIs and ensures stable performance.
+
+2. Caching:
+   Implemented an in-memory cache using node-cache with a 60-second TTL.
+   If the same stock data is requested within that time, the cached result is returned instead of calling the API again.
+
+3. Logging:
+   Added a logger.js utility to record API hits, errors, and cache activity for easier debugging.
+
+This combination of caching and throttling helped make the API layer faster, more reliable, and less prone to rate-limit issues.
+
+----------------------------------------------------
+
+Mistakes I Made and What I Learned
+
+1. I missed adding .js extensions in ES Module imports.
+2. I used for...in for arrays instead of for...of.
+3. I forgot to globally import Tailwind CSS at first.
+
+Each of these mistakes helped me understand React environment setup, Tailwind integration, and Node.js modular imports more clearly.
+Fixing them improved my overall workflow and debugging approach.
+
+----------------------------------------------------
+
+Summary
+
+After resolving these challenges, the Dynamic Portfolio Dashboard now works seamlessly.
+It:
+
+- Fetches real-time CMP, P/E Ratio, and Earnings from Yahoo and Google Finance
+- Calculates Gain/Loss dynamically
+- Displays sector-wise summaries and charts
+- Uses caching and throttling to optimize API calls
+- Features a clean, responsive UI built using React, Tailwind CSS, and Node.js
+
+Working through these issues helped me strengthen my understanding of:
+- Asynchronous data fetching in React and Node.js
+- Performance optimization in API design
+- Modern Tailwind configuration
+- And best practices for building real-time dashboards
+
+----------------------------------------------------
+
