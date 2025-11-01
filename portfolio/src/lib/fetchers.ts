@@ -6,6 +6,7 @@ const BASEURL = 'http://localhost:4000';
 const fetchPortfolilo = async (source: "yahoo" | "google"): Promise<Stock[]> => {
     try {
         const res = await axios.get(`${BASEURL}/api/stocks?source=${source}`);
+        console.log('api is calling', res);
         return res.data;
 
     } catch {

@@ -6,7 +6,7 @@ interface HeaderProps {
 export default function Header({ dataSource, setDataSource }: HeaderProps) {
     return (
         <header className="bg-white shadow p-4 flex items-center justify-between sticky top-0 z-50">
-            <h1 className="text-xl font-bold text-gray-800">Dynamic Portfolio Dashboard</h1>
+            <h1 className="text-xl font-bold text-gray-800"> Portfolio Dashboard</h1>
 
             <div className="flex items-center gap-3">
                 <span className="font-medium text-gray-700">Source:</span>

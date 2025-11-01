@@ -9,6 +9,8 @@ export default function usePortfolioData(source: "yahoo" | "google") {
 
     async function loadData() {
         try {
+            setLoading(true);
+            setError(null);
             const portfolio = await fetchPortfolilo(source);
             setData(portfolio);
         } catch (error) {
@@ -20,9 +22,18 @@ export default function usePortfolioData(source: "yahoo" | "google") {
 
     useEffect(() => {
         loadData();
-        // const interval = setInterval(loadData, 15000)
-        // return () => clearInterval(interval)
-    }, [source])
+        const interval = setInterval(async () => {
+            try {
+                const portfolio = await fetchPortfolilo(source);
+                setData(portfolio);
+            } catch {
+                console.error("Background refresh failed");
+            }
+        }, 15000);
+
+        return () => clearInterval(interval);
+    }, [source]);
+
 
     return { data, error, loading }
 }

@@ -15,7 +15,9 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "google-finance2": "^0.0.2",
+    "node-cache": "^5.1.2",
     "nodemon": "^3.1.10",
+    "p-limit": "^7.2.0",
     "xlsx": "^0.18.5",
     "yahoo-finance2": "^3.10.0"
   }

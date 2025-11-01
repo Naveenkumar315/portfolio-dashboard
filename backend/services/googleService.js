@@ -14,7 +14,7 @@ export async function getGoogleFinanceLiveData(companyName) {
         ];
 
         for (const symbol of symbols) {
-            console.log("🔍 Trying symbol:", symbol);
+            console.log("Trying symbol:", symbol);
 
             try {
                 const url = `https://www.google.com/finance/quote/${symbol}`;
