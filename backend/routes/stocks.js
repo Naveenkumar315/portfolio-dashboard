@@ -22,9 +22,14 @@ router.get("/", async (req, res) => {
         console.log("API is calling");
         logInfo("API get started!", source);
 
+        if (!fs.existsSync(filePath)) {
+            throw new Error(`Portfolio file not found at: ${filePath}`);
+        }
+
         const rawData = JSON.parse(fs.readFileSync(filePath, "utf8"));
         const stocks = cleanPortfolioData(rawData);
         const enriched = [];
+
 
         for (let stock of stocks) {
             await limit(async () => {
